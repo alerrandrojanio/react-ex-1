@@ -1,12 +1,6 @@
 import react, { useState } from "react"
 
-import Input from "../../components/Input";
-import Button from "../../components/Button";
-import Titulo from "../../components/Titulo";
-
-import './styles.css'
-
-
+import { Title, Container, ContainerNumbers, ContainerButton, ContainerResult, Button, Input } from './styles'
 
 const Form = () => {
   const [num1, setNum1] = useState('');
@@ -19,17 +13,25 @@ const Form = () => {
     setResult(parseInt(num1) + parseInt(num2));
   }
 
+  function limpar(e) {
+    e.preventDefault();
+    
+    setNum1("");
+    setNum2("");
+    setResult("");
+  }
+
   const title = process.env.REACT_APP_TITLE;
 
   return (
     <>
-      <Titulo className="text-center mb-4">{title}</Titulo> 
+      <Title className="text-center mb-4">{title}</Title> 
 
     <form>
-      <div className='container'>
-        <div className='container-numbers'>
+      <Container>
+        <ContainerNumbers>
           <div className="form-outline">
-            <input
+            <Input
               className="form-control"
               value={num1}
               onChange={e => setNum1(e.target.value)}
@@ -39,8 +41,8 @@ const Form = () => {
             </label>
           </div>
           <div className="form-outline">
-            <input
-              class="form-control" 
+            <Input
+              className="form-control"
               value={num2}
               onChange={e => setNum2(e.target.value)}
             />
@@ -48,22 +50,27 @@ const Form = () => {
               Segundo número
             </label>
           </div>
-        </div>
+        </ContainerNumbers>
 
-        <div className='container-button'>
+        <ContainerButton>
           <Button
             className='btn btn-primary btn-lg'
             onClick={somar}
-          >+</Button>
-          {/* <Button
+          >
+            +
+          </Button>
+          <Button
             className='btn btn-danger btn-lg'
-          >Limpar</Button> */}
-        </div>
+            onClick={limpar}
+          >
+            Limpar
+          </Button> 
+        </ContainerButton>
 
-        <div className='container-result'>
+        <ContainerResult>
           <div className="form-outline">
-            <input
-              class="form-control"
+            <Input
+              className="form-control"
               value={result}
               onChange={e => setResult(e.target.value)}
               disabled
@@ -71,9 +78,10 @@ const Form = () => {
             <label className="form-label" for="typeNumber">
               Resultado
             </label>
+              
           </div>    
-        </div>
-      </div>
+        </ContainerResult>
+      </Container>
     </form>
     </>
   )
